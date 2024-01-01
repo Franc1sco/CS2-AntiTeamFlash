@@ -42,7 +42,7 @@ public class AntiTeamFlash : BasePlugin
             if (!attacker.IsValid) return HookResult.Continue;
             if (!attacker.PlayerPawn.IsValid) return HookResult.Continue;
 
-            if (attacker.PlayerPawn.Value.TeamNum == player.TeamNum)
+            if (attacker.PlayerPawn.Value.TeamNum == player.TeamNum && (attacker.PlayerPawn.Equals(attacker))
             {
                 player.PlayerPawn.Value.FlashMaxAlpha = 0.5f;
                 new Timer(player.PlayerPawn.Value.FlashDuration, () =>
