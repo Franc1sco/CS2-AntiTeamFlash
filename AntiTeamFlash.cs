@@ -1,4 +1,5 @@
-﻿using CounterStrikeSharp.API.Core;
+﻿using CounterStrikeSharp.API;
+using CounterStrikeSharp.API.Core;
 using CounterStrikeSharp.API.Core.Attributes;
 using CounterStrikeSharp.API.Modules.Admin;
 using System.Text.Json.Serialization;
@@ -17,7 +18,7 @@ public class AntiTeamFlash : BasePlugin, IPluginConfig<ConfigGen>
 {
     public override string ModuleName => "Anti Team Flash";
     public override string ModuleAuthor => "Franc1sco Franug";
-    public override string ModuleVersion => "0.0.3b";
+    public override string ModuleVersion => "0.0.3.1b";
 
     public ConfigGen Config { get; set; } = null!;
     public void OnConfigParsed(ConfigGen config) { Config = config; }
@@ -39,10 +40,10 @@ public class AntiTeamFlash : BasePlugin, IPluginConfig<ConfigGen>
 
             if (attacker.PlayerPawn.Value.TeamNum == player.TeamNum && (!Config.FlashOwner || attacker.UserId != player.UserId))
             {
-                player.PlayerPawn.Value.FlashMaxAlpha = 0.5f;
+                player.PlayerPawn.Value.BlindUntilTime = Server.CurrentTime;
             }
 
             return HookResult.Continue;
-        }, HookMode.Pre);
+        });
     }
 }
